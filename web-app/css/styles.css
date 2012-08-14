@@ -1,0 +1,121 @@
+body, input, select, textarea {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+/* BASE LAYOUT */
+
+html * {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #f0f0f0;
+    height: 100%;
+    color: #545454;
+}
+
+div.container {
+    background-color: #ffffff;
+    box-shadow: 0 0 6px #dfdfdf;
+    width: 850px;
+    margin: auto;
+}
+
+div.header {
+    padding: 10px;
+    height: 50px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #efefef;
+}
+
+div.menu { width: 100%; background-color: #f3f3f3; border-bottom: 1px solid #efefef; }
+div.menu ul li { list-style: none; padding: 8px 8px; float: left; cursor: pointer; }
+div.menu ul li:hover { background-color: #e5e5e5; }
+div.menu ul li a:hover { text-decoration: none; }
+
+div.footer {
+    padding: 10px;
+    height: 100px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #efefef;
+    color: #656565;
+    font-size: 13px;
+}
+
+div.content { padding: 10px; }
+
+h1 { font-size: 22px; margin: 15px 2px 8px 2px; }
+h2 { font-size: 20px; margin: 15px 2px 8px 2px; }
+h3 { font-size: 18px; margin: 10px 2px 8px 2px; }
+h4 { font-size: 14px; margin: 10px 2px 8px 2px; }
+h5 { font-size: 12px; margin: 10px 2px 8px 2px; }
+hr { border: 0; height: 0; border-top: 1px solid #efefef; margin: 5px 0; }
+
+a.logo { font-size: 27px; }
+a.logo:hover { text-decoration: none; }
+
+a { color: #232323; text-decoration: none; }
+a:hover { color: #141414; text-decoration: underline; }
+a:visited { color: #232323; }
+
+.header .top-link { margin-left: 5px; }
+
+.pull-left { float: left; }
+.pull-right { float: right; }
+.clearfix { clear: both; }
+
+table { border: 0; width: 825px; padding: 10px 0; border-spacing: 0; }
+table tr { border: 0; padding: 6px 0;  }
+table tbody tr:hover { background-color: #efefef; }
+table th { border: 0; text-align: left; font-weight: bold; font-size: 13px; padding: 8px 5px; border-bottom: 2px solid #e0e0e0;}
+table td { border: 0; padding: 6px 5px; border-bottom: 1px solid #efefef; margin: 0;}
+table td.action { font-size: 11px; text-transform: uppercase; text-align: right; font-weight: bold; }
+table td.action.delete { width: 60px; color: #ae0100;}
+table td.action.delete a { color: #ae0100;}
+table td.action.edit { width: 40px; }
+table td.action.view { width: 40px; }
+
+.btn { color: #444444; padding: 4px 8px; background: #f0f0f0; border-radius: 4px; text-decoration: none; border: 1px solid #dfdfdf; cursor: pointer; }
+.btn:hover { background: #e2e2e2; text-decoration: none; color: #444444; }
+.btn:visited { text-decoration: none; color: #444444; }
+
+.btns { padding: 15px 5px; }
+
+label { padding: 3px 0; }
+input[type=text], input[type=password], textarea { padding: 4px 5px; border: 1px solid #cccccc; border-radius: 4px; font-family: Arial; font-size: 13px; width: 200px; }
+textarea { width: 600px; height: 100px; }
+form { padding: 10px 5px; }
+p { padding: 10px 0; }
+
+label.field_label { width: 100px;  display: block; float: left; }
+#loginForm #remember_me_holder { margin-left: 110px; }
+.error { color: #bc0100; margin: 10px 0 5px 0; padding: 10px 6px; font-size: 0.9em;
+    border: 1px solid #f1cecb; background-color: #ffeee6; border-radius: 5px; }
+.field-error { color: #bc0100; font-size: 0.9em; }
+
+.field { padding: 5px 5px; }
+.clearfix-after:after { clear: both; content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.field .label { font-weight: bold; width: 200px; float: left; color: #555555; }
+.field .value { float: left; }
+
+.find-input { width: 150px; }
+.find-input:focus { width: 250px; }
+p.total { color: #999; font-size: 13px; }
+
+.map { width: 250px; height: 400px;}
+.main-image { width: 400px; }
+.main-side { float: left; margin: 10px 0 0;}
+.others-side { float: left; width: 420px; margin: 10px 0 0 10px;}
+.others-side img { float: left; margin: 0 5px 5px 0;}
+
+.placeholder { font-size: 0.9em; color: #888888; }
+
+.comment { padding: 5px 5px;  }
+.comment .author { font-weight: bold; }
+.comment .message { margin: 4px 0 4px 4px; padding: 7px 10px; background-color: #f5f5f5; border-radius: 3px; }
+.comment .date { margin-top: 5px; font-size: 0.8em; color: #888888; }
+
+#commentAirports #message { width: 810px; }
+.colorError { color: #ff0002; }
