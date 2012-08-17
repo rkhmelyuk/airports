@@ -14,14 +14,12 @@
     <title></title>
     <meta name="layout" content="main"/>
 
-      <r:script>
+    <r:script>
     $(document).ready(function () {
-
-
     $('.next').live("click", function(){
     var numberPage = $('.next').attr("rel");
     var query = $('#query').attr("value");
-$("#airports").load("<g:createLink action='index' />?page=" + numberPage +"&name="+query+ " #airports")
+$("#airports").load("<g:createLink action='index'/>?page=" + numberPage +"&name="+query+ " #airports")
     });
 
     $('.prev').live("click", function(){
@@ -31,18 +29,18 @@ $("#airports").load("<g:createLink action='index' />?page=" + numberPage +"&name
     });
 
     $('.delete').live("click", function() {
-    var airportId = $(this).attr("rel");
-    var numberPage = $(this).attr("page");
-    var airport = $(this).parent();
+            var airportId = $(this).attr("rel");
+            var numberPage = $(this).attr("page");
+            var airport = $(this).parent();
     $.ajax({
-    type: 'POST',
-    url: "<g:createLink action="delete"/>/"+airportId,
-    data: {id: airportId} ,
-    success: function(data, textStatus, xhr) {
-    if (xhr.status == 204) {
-    airport.remove();
-    $("#airports").load("<g:createLink action='index'/>?page=" + numberPage + " #airports")
-    }
+            type: 'POST',
+            url: "<g:createLink action="delete"/>/"+airportId,
+             data: {id: airportId} ,
+            success: function(data, textStatus, xhr) {
+             if (xhr.status == 204) {
+                airport.remove();
+                 $("#airports").load("<g:createLink action='index'/>?page=" + numberPage + " #airports")
+                 }
     }
     });
     });
@@ -52,6 +50,7 @@ $("#airports").load("<g:createLink action='index' />?page=" + numberPage +"&name
     replaceTarget: true
     });
     })
+
     </r:script>
 
 </head>
@@ -70,7 +69,9 @@ $("#airports").load("<g:createLink action='index' />?page=" + numberPage +"&name
     </g:form>
 </div>
 
-<div class="clearfix"></div><hr/>
+<div class="clearfix"></div>
+
+<hr/>
 
 <g:render template="airports"/>
 

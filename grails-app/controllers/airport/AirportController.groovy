@@ -1,12 +1,12 @@
 package airport
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.apache.commons.lang.RandomStringUtils
 import org.imgscalr.Scalr
 
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
-import grails.converters.JSON
 
 class AirportController {
 
@@ -22,19 +22,20 @@ class AirportController {
         int countRecord = Airport.createCriteria().count {
             or {
                 like("name", "%${query}%")
+                like("iataCode", "%${query}%")
                 like("addressCountry", "%${query}%")
             }
         }
         def res = Airport.createCriteria().list {
             or {
                 like("name", "%${query}%")
+                like("iataCode", "%${query}%")
                 like("addressCountry", "%${query}%")
             }
             maxResults COUNT_RECORD
             firstResult((page - 1) * COUNT_RECORD)
         }
         boolean hasNextPage = ((page * COUNT_RECORD) < countRecord);
-        print(query)
         [airports: res, page: page, query: query, linkNextIsThere: hasNextPage, countRecord: countRecord]
     }
 
@@ -43,21 +44,18 @@ class AirportController {
         render template: "airports", model: index()
     }
 
-    def nextAirports() {
-        def page=params.int('page')
-        print("next "+page)
-        render template: "airports", model: index(),var:page+1
-    }
-    def prevAirports() {
-        def page=params.int('page')
-        print("prev "+page)
-        render template: "airports", model: index(),var:page-1
-    }
-
     def show() {
         def airport = Airport.get(params.id)
         def airportImages = AirportImage.findAllByAirport(airport)
-        [airport: airport, airportImages: airportImages, comments: Comment.findAllByAirport(airport)]
+        boolean userVote = true;
+
+        /*if (user){
+            userVote=false;
+        }else{
+            userVote=true;
+        }*/
+        [airport: airport, airportImages: airportImages,
+                comments: Comment.findAllByAirport(airport), userVote: userVote]
     }
 
 
@@ -82,6 +80,58 @@ class AirportController {
 
     def commentAirports() {
         render template: "comments", model: comment()
+    }
+
+    def rating() {
+        def airport = Airport.get(params.airportId)
+        if (!airport) {
+            response.sendError 404
+            return
+        }
+        String sa = principal.username;
+        def countChange =
+            AirportRating.executeQuery("select count(a.username) from AirportRating a where a.username=:s and a.airport=:airport1 group by a.airport", [s: sa, airport1: airport])
+        print(countChange)
+        if (!countChange) {
+
+            def rating = AirportRating.findByAirport(airport)
+            if (!rating) {
+                rating = new AirportRating();
+            }
+
+            if (request.method == "POST") {
+                rating.airport = airport
+                rating.username = principal.username
+
+                if (airport.rating == null) {
+                    airport.rating = 0;
+                }
+                rating.airport = airport
+
+                airport.rating = params.float('rating')
+
+                /*if (rating.countChange == null || rating.countChange == 0) {
+                  rating.countChange = 0;
+                  rating.rating = (rating.rating + params.float('rating'))
+              } else {
+                  rating.rating = (rating.rating + params.float('rating')) / (rating.countChange + 1)
+              }
+              rating.countChange += 1;*/
+
+
+                if (rating.save()) {
+                    print("Airport rating save rating.airport")
+                }
+            }
+        } else {
+            print("sss")
+            render template: "comments", model: show()
+        }
+    }
+
+
+    def saveRating() {
+        render template: "rating", model: show()
     }
 
     @Secured("ROLE_ADMIN")

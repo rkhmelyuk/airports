@@ -8,6 +8,10 @@ class Comment {
     String message
     Date date
 
+    static mapping = {
+        version false
+        date index: 'id_date'
+    }
 
     static constraints = {
     }

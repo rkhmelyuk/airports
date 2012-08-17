@@ -24,6 +24,15 @@ class Airport {
     String phone
     String fax
     String webSite
+    float rating
+
+    static mapping = {
+        version false
+        name index: 'id_addressCountry'
+        iataCode index: 'id_addressCountry'
+        addressCountry index: 'id_addressCountry'
+    }
+
 
     static constraints = {
 
@@ -35,20 +44,20 @@ class Airport {
         wikipediaLink(maxSize: 100)
         keywords(maxSize: 50)
 
-        code(size: 1..8, unique: true,blank: false)
-        name(maxSize: 200,blank: false)
+        code(size: 1..8, unique: true, blank: false)
+        name(maxSize: 200, blank: false)
 
-        addressLine1(maxSize: 50,blank: false)
-        addressLine2(maxSize: 50,blank: false)
-        addressCity(maxSize: 50,blank: false)
-        addressCountry(maxSize: 50,blank: false)
+        addressLine1(maxSize: 50, blank: false)
+        addressLine2(maxSize: 50, blank: false)
+        addressCity(maxSize: 50, blank: false)
+        addressCountry(maxSize: 50, blank: false)
         addressPostalCode(maxSize: 10)
 
-        phone(maxSize: 50,blank: false)
-        fax(maxSize: 50,url: true)
+        phone(maxSize: 50, blank: false)
+        fax(maxSize: 50, url: true)
 
-        webSite(maxSize: 100,url: true)
-        wikipediaLink(maxSize: 100,url: true)
+        webSite(maxSize: 100, url: true)
+        wikipediaLink(maxSize: 100, url: true)
     }
 
     static transients = ['address', 'fullAddress']

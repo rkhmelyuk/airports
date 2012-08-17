@@ -13,8 +13,22 @@
     <meta name="layout" content="main"/>
     <r:script>
         $(document).ready(function() {
+
+        $('.next').live("click", function(){
+    var numberPage = $('.next').attr("rel");
+    var query = $('#query').attr("value");
+$("#users").load("<g:createLink action='userPage'/>?page=" + numberPage +"&name="+query+ " #users")
+    });
+
+    $('.prev').live("click", function(){
+    var numberPage = $('.prev').attr("rel");
+    var query = $('#query').attr("value");
+    $("#users").load("<g:createLink action='userPage'/>?page=" + numberPage +"&name="+query+ " #users")
+    });
+
             $('.deleteUser').live("click", function() {
                 var userId = $(this).attr("rel");
+                var numberPage = $(this).attr("page");
                 var user = $(this).parent();
                 $.ajax({
                     type: 'POST',
@@ -23,46 +37,37 @@
                     success: function(data, textStatus, xhr) {
                         if (xhr.status == 204) {
                             user.remove();
-                            $("#users").load("<g:createLink action='deleteUser'/>" + " #users")
+                            $("#users").load("<g:createLink action='userPage'/>?page=" + numberPage + " #users")
                         }
                     }
                 });
             });
+            $("#findUsers").ajaxForm({
+    target: "#users",
+    replaceTarget: true
+    });
         })
     </r:script>
 </head>
+
 <body>
+<h1>Users</h1>
+<hr/>
+
 <div class="pull-left btns">
     <g:link class="btn" controller="Account" action="account">Create user</g:link>
-</div><br/>
-
-<div id="users">
-    <br><h1>Users</h1>
-    <table>
-
-        <thead>
-            <tr>
-                <th><g:message code="account.userName"/></th>
-                <th><g:message code="account.role"/></th>
-                <th class="action"></th>
-            </tr>
-        </thead>
-        <g:each in="${userList}" var="user">
-            <tr>
-                <td><g:fieldValue bean="${user}" field="username"/></td>
-                <td><g:fieldValue bean="${user}" field="role.name"/></td>
-                <td class="action delete">
-                    <g:if test="${user.username != currentUsername}">
-                        <a class="deleteUser" href="javascript:void(0);" rel="${user.id}">Delete</a>
-                    </g:if>
-                </td>
-            </tr>
-        </g:each>
-    </table>
 </div>
 
-<div class="btns pull-right"><g:link controller="dashboard" action="index" class="btn"><g:message code="airport.cancel"/></g:link></div>
+<div class="pull-right">
+    <g:form method="POST" name="findUsers" action="findUsers">
+        <g:textField id="query" type="search" name="name" value="${query}" placeholder="Search users"/>
+        <input type="submit" value="Find" class="btn"/>
+    </g:form>
+</div>
+
 <div class="clearfix"></div>
+
+<g:render template="userList"/>
 
 </body>
 </html>
